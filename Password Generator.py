@@ -10,8 +10,11 @@ import random
 # initializing tkinter
 root = Tk()
 
-photo = PhotoImage(file='Junior.jpg')
+# set icon photo
+photo = PhotoImage(file='Junior.png')
+root.iconphoto(False, photo)
 
+# set title
 root.title('PW Gen - Joe')
 
 # setting the width and height of the gui
