@@ -1,11 +1,11 @@
-
 from tkinter import *
 
 # use to copy our generated pw to clipboard
 import pyperclip
 
 # for generating random pw
-import random
+from random import choice
+from string import printable
 
 # initializing tkinter
 root = Tk()
@@ -29,26 +29,19 @@ passlen = IntVar()
 # setting the length of pw to zero
 passlen.set(0)
 
-
 # function to generate pw
-def generate():
-    # storing keys in a list which will be used to generate pw 
-    pass1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-            'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
-            'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D',
-            'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
-            'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 
-            'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', 
-            '9', '0', ' ', '!', '@', '#', '$', '%', '^', '&', 
-            '*', '(', ')', '-', '_', '=', '+', '"', "'", ':',
-            ';', '>', '<', '?', '/', '\\', '|', '[', ']', '.']
+def generate() -> str:
+    # storing keys in a list which will be used to 
+    #  generate pw, [:-5] removes the last five, un-wanted characters
+    #  in the list --> [ '\t', '\n', '\r', '\x0b', '\x0c' ]
+    random_characters = list(printable)[:-5]
 
-    # declaring empty string
     password = ""
 
     # loop to generate random password of the length entered by the user
     for _ in range(passlen.get()):
-        password += random.choice(pass1)
+        password += choice(random_characters)
+
 
     # setting password to entry widget
     passstr.set(password)
