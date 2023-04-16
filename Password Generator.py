@@ -1,78 +1,46 @@
 from tkinter import *
-
-# use to copy our generated pw to clipboard
 import pyperclip
-
-# for generating random pw
 from random import choice
 from string import printable
 
-# initializing tkinter
 root = Tk()
 
-# set icon photo
 photo = PhotoImage(file='Junior.png')
 root.iconphoto(False, photo)
 
-# set title
 root.title('PW Gen - Joe')
 
-# setting the width and height of the gui
-root.geometry("500x250")    # x small case here
+root.geometry("500x250")
 
-# declaring variable of str type. Variable will be used to store pw generated
 passstr = StringVar()
-
-# declaring variable of int type which will be used to store length of pw entered by user
 passlen = IntVar()
-
-# setting the length of pw to zero
 passlen.set(0)
 
-# function to generate pw
-def generate() -> str:
-    # storing keys in a list which will be used to 
-    #  generate pw, [:-5] removes the last five, un-wanted characters
-    #  in the list --> [ '\t', '\n', '\r', '\x0b', '\x0c' ]
+def generate_password() -> str:
     random_characters = list(printable)[:-5]
-
     password = ""
-
-    # loop to generate random password of the length entered by the user
     for _ in range(passlen.get()):
         password += choice(random_characters)
-
-
-    # setting password to entry widget
     passstr.set(password)
 
-# function to copy password to clipboard
 def copytoclipboard():
     random_password = passstr.get()
     pyperclip.copy(random_password)
 
-# Creating text label widget
 Label(root, text="Password Generator", font="calibri 25 bold").pack()
 
-# Creating text label widget
 Label(root, text="Enter password length").pack(pady=3)
 
-# Creating widget to take pw length entered by user
 Entry(root, textvariable=passlen).pack(pady=3)
 
-# button to call generate function
-Button(root, text="Generate Password", command=generate).pack(pady=7)
+Button(root, text="Generate Password", command=generate_password).pack(pady=7)
 
-# Creating text label widget
 Label(root, text="Password Generated").pack(pady=3)
 
-# entry widget to show generated pw
 Entry(root, textvariable=passstr).pack(pady=3)
 
-# button to call copytoclipboard function
 Button(root, text="Copy to clipboard", command=copytoclipboard).pack()
 
-# mainloop() - infinite loop to run application when in ready state 
 root.mainloop()
 
 """
